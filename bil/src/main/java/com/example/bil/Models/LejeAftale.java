@@ -3,6 +3,7 @@ package com.example.bil.Models;
 import java.time.LocalDate;
 
 public class LejeAftale {
+
     private int lejeaftale_id;
     private int kunde_id;
     private int bil_id;
