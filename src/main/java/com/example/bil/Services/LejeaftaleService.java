@@ -1,30 +1,53 @@
 package com.example.bil.Services;
 
+import com.example.bil.Models.LejeAftale;
+import com.example.bil.Repositories.LejeAftaleRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class LejeAftaleService {
+public class LejeaftaleService {
 
-    private ? ?
+    private LejeAftaleRepository lejeAftaleRepository;
 
-    public LejeAftaleService(? ?) {
-
+    public LejeaftaleService(LejeAftaleRepository lejeAftaleRepository) {
+        this.lejeAftaleRepository = lejeAftaleRepository;
     }
 
-    public createLejeAftale() {
-
+    public void createLejeAftale() {
+        try {
+            lejeAftaleRepository.getAntalUdlejedeBiler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public getAlleLejeaftaler() {
+    public List<LejeAftale> getAlleLejeaftaler() {
+        try {
+            lejeAftaleRepository.getAlleLejeaftaler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return new ArrayList<>();
     }
 
     public getLejeAftaleById() {
 
     }
 
-    public getActiveLejeaftaler() {
+    public List<LejeAftale> getActiveLejeaftaler() {
+        try {
+            lejeAftaleRepository.getActiveLejeaftaler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return new ArrayList<>();
     }
 
     public updateLejeAftaleStatus() {

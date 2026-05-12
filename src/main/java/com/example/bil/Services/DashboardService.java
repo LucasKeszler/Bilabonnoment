@@ -1,35 +1,85 @@
 package com.example.bil.Services;
 
+import com.example.bil.Models.Car;
+import com.example.bil.Repositories.CarRepository;
+import com.example.bil.Repositories.KundeRepository;
+import com.example.bil.Repositories.LejeAftaleRepository;
 import org.springframework.stereotype.Service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DashboardService {
 
-    private ? ?
-    private ? ?
-    private ? ?
+    private CarRepository carRepository;
+    private LejeAftaleRepository lejeAftaleRepository;
+    private KundeRepository kundeRepository;
 
-    public DashboardService(? ?, ? ?, ? ?) {
-
+    public DashboardService(CarRepository carRepository, LejeAftaleRepository lejeAftaleRepository, KundeRepository kundeRepository) {
+        this.carRepository = carRepository;
+        this.kundeRepository = kundeRepository;
+        this.lejeAftaleRepository = lejeAftaleRepository;
     }
 
-    public getAntalUdlejedeBiler() {
+    public int getAntalUdlejedeBiler() {
+        try {
+            return lejeAftaleRepository.getAntalUdlejedeBiler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return 0;
     }
 
-    public getSamletPrisAktiveLejeaftaler() {
+    public double getSamletPrisAktiveLejeaftaler() {
+        try {
+            return lejeAftaleRepository.getSamletPrisAktiveLejeaftaler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return 0;
     }
 
-    public getIndtjeningDenneMaaned() {
+    public double getIndtjeningDenneMaaned() {
+        try {
+            return lejeAftaleRepository.getIndtjeningDenneMaaned();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return 0;
     }
 
-    public getAntalTilbageleveredeBiler() {
+    public int getAntalTilbageleveredeBiler() {
+        try {
+            return carRepository.getAntalTilbageleveredeBiler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return 0;
     }
 
-    public getBilerMedSkader() {
+    public List<Car> getBilerMedSkader() {
+        try {
+            return carRepository.getBilerMedSkader();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return new ArrayList<>();
+    }
+
+    public List<Car> getTilbageleveredeBiler() {
+        try {
+            return carRepository.getTilbageleveredeBiler();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
     }
 }
