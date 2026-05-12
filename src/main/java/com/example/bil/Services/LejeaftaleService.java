@@ -36,8 +36,14 @@ public class LejeaftaleService {
         return new ArrayList<>();
     }
 
-    public getLejeAftaleById() {
+    public LejeAftale getLejeAftaleById() {
+        try{
+            lejeAftaleRepository.getLejeAftaleById(int lejeaftale_id);
 
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<LejeAftale> getActiveLejeaftaler() {

@@ -158,10 +158,34 @@ public class LejeAftaleRepository {
         return 0;
     }
 
-    public LejeAftale getLejeAftaleById(int lejeaftale_id) {
+    public LejeAftale getLejeAftaleById(int lejeaftale_id) throws SQLException{
         Connection database = new ConnectionManager().getConnection();
+        LejeAftale lejeAftale = null;
 
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM lejeaftale WHERE lejeaftale_id = ?"
+        );
 
+        preparedStatement.setInt(1, lejeaftale_id);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if(rs.next()) {
+
+            LejeStatus lejeStatus = LejeStatus.valueOf(rs.getString("status"));
+
+            lejeAftale = new LejeAftale(
+                    rs.getInt("lejeaftale_id"),
+                    rs.getInt("kunde_id"),
+                    rs.getInt("bil_id"),
+                    rs.getDate("startdato").toLocalDate(),
+                    rs.getDate("slutdato").toLocalDate(),
+                    rs.getDouble("pris"),
+                    rs.getString("afhentningssted"),
+                    rs.getString("afleveringssted"),
+                    lejeStatus
+            );
+        }
+        return lejeAftale;
     }
 
 }
