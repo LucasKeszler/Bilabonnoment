@@ -36,9 +36,9 @@ public class LejeaftaleService {
         return new ArrayList<>();
     }
 
-    public LejeAftale getLejeAftaleById() {
+    public LejeAftale getLejeAftaleById(int lejeaftale_id) {
         try{
-            lejeAftaleRepository.getLejeAftaleById(int lejeaftale_id);
+            lejeAftaleRepository.getLejeAftaleById(lejeaftale_id);
 
         } catch (SQLException e){
             e.printStackTrace();
@@ -56,15 +56,15 @@ public class LejeaftaleService {
         return new ArrayList<>();
     }
 
-    public updateLejeAftaleStatus() {
+    //public updateLejeAftaleStatus() {
 
-    }
+   // }
 
-    public deleteLejeAftale() {
+   //public deleteLejeAftale() {
 
-    }
+    //}
 
-    public calculatePris() {
+    //public calculatePris() {
 
-    }
+    //}
 }

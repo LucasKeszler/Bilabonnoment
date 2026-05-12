@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret kunde</title>
+</head>
+<body>
+
+<h1>Opret kunde</h1>
+
+<p th:if="${param.success}" style="color: green;">
+    Kunde blev oprettet!
+</p>
+
+<form method="post" action="/kunde/create">
+    <label>Navn:</label>
+    <input type="text" name="navn" required>
+
+    <br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email">
+
+    <br><br>
+
+    <label>Telefon:</label>
+    <input type="text" name="telefon">
+
+    <br><br>
+
+    <button type="submit">Gem kunde</button>
+</form>
+
+</body>
+</html>

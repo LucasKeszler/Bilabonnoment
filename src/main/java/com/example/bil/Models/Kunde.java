@@ -13,6 +13,12 @@ public class Kunde {
         this.telefon = telefon;
     }
 
+    public Kunde(String navn, String email, String telefon) {
+        this.navn = navn;
+        this.email = email;
+        this.telefon = telefon;
+    }
+
     public int getKunde_id() {
         return kunde_id;
     }
