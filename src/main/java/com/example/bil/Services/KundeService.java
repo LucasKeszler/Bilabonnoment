@@ -1,26 +1,48 @@
 package com.example.bil.Services;
 
+import com.example.bil.Models.Kunde;
+import com.example.bil.Repositories.KundeRepository;
 import org.springframework.stereotype.Service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class KundeService {
 
-    private ? ?
+    private KundeRepository kundeRepository;
 
-    public KundeService(? ?) {
-
+    public KundeService(KundeRepository kundeRepository) {
+        this.kundeRepository = kundeRepository;
     }
 
-    public void createKunde() {
-
+    public void createKunde(Kunde kunde) {
+        try {
+            kundeRepository.createKunde(kunde);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public getKundeById() {
+    public Kunde getKundeById(int kunde_id) {
+        try {
+            kundeRepository.getKundeByID(kunde_id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return null;
     }
 
-    public getAllKunder() {
+    public List<Kunde> getAllKunder() {
+        try {
+            kundeRepository.getAllKunder();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return new ArrayList<>();
     }
 
     public updateKunde() {

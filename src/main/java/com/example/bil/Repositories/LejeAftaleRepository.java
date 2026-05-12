@@ -1,11 +1,13 @@
 package com.example.bil.Repositories;
 
+import com.example.bil.Models.Car;
 import com.example.bil.Models.LejeAftale;
 import com.example.bil.Models.LejeStatus;
 import com.example.bil.Utillity.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,4 +103,65 @@ public class LejeAftaleRepository {
 
         return activeLejeaftaler;
     }
+
+    public int getAntalUdlejedeBiler() throws SQLException{
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT COUNT(*) AS antal FROM lejeaftale WHERE status = 'AKTIV'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("antal");
+        }
+
+        return 0;
+    }
+
+    public double getSamletPrisAktiveLejeaftaler() throws SQLException{
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT SUM(pris) AS total FROM lejeaftale WHERE status = 'AKTIV'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("total");
+        }
+
+        return 0;
+    }
+
+    public double getIndtjeningDenneMaaned() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        LocalDate today = LocalDate.now();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT SUM(pris) AS total FROM lejeaftale " +
+                "WHERE MONTH(startdato) = ? AND YEAR(startdato) = ?"
+        );
+
+        preparedStatement.setInt(1, today.getMonthValue());
+        preparedStatement.setInt(2, today.getYear());
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            return rs.getDouble("total");
+        }
+
+        return 0;
+    }
+
+    public LejeAftale getLejeAftaleById(int lejeaftale_id) {
+        Connection database = new ConnectionManager().getConnection();
+
+
+    }
+
 }
