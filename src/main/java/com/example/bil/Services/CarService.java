@@ -8,9 +8,9 @@ import java.util.List;
 @Service
 public class CarService {
 
-    private ??
+    private UserRepository userRepository;
 
-    public CarService(? ?) {
+    public CarService(UserRepository userRepository) {this.userRepository = userRepository;
 
     }
 
