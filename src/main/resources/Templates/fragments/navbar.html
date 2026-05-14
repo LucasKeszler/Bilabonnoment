@@ -1,0 +1,48 @@
+<div th:fragment="navbar">
+    <header>
+        <h2>Bilabonnement Admin Portal</h2>
+
+        <nav>
+            <!-- ADMIN -->
+            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+               href="/dashboard">Dashboard</a>
+
+            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+               href="/lejeaftaler">Lejeaftaler</a>
+
+            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+               href="/kunder">Kunder</a>
+
+            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+               href="/biler">Biler</a>
+
+            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+               href="/skader">Skader</a>
+
+
+            <!-- DATAREGISTRERING -->
+            <a th:if="${session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
+               href="/lejeaftaler">Lejeaftaler</a>
+
+            <a th:if="${session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
+               href="/kunder">Kunder</a>
+
+            <a th:if="${session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
+               href="/biler">Biler</a>
+
+
+            <!-- SKADE -->
+            <a th:if="${session.medarbejder.rolle.name() == 'SKADE'}"
+               href="/skader">Skader</a>
+
+
+            <!-- BUSINESS -->
+            <a th:if="${session.medarbejder.rolle.name() == 'BUSINESS'}"
+               href="/dashboard">Dashboard</a>
+
+
+            <!-- ALLE -->
+            <a href="/logout">Log ud</a>
+        </nav>
+    </header>
+</div>
