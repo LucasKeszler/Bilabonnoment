@@ -166,6 +166,86 @@ public class CarRepository {
         }
         return cars;
     }
+
+    public List<Car> getBilerMedSkader() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Car> skadetCars = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = 'SKADET'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            CarStatus status = CarStatus.valueOf(rs.getString("status"));
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    status,
+                    rs.getString("lokation")
+            );
+
+            skadetCars.add(car);
+        }
+
+        return skadetCars;
+    }
+
+    public List<Car> getTilbageleveredeBiler() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Car> tilbageLeveretBiler = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = 'TILBAGELEVERET'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            CarStatus status = CarStatus.valueOf(rs.getString("status"));
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    status,
+                    rs.getString("lokation")
+            );
+
+            tilbageLeveretBiler.add(car);
+        }
+
+        return tilbageLeveretBiler;
+    }
+
+    public int getAntalTilbageleveredeBiler() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT COUNT(*) AS total FROM bil WHERE status = 'TILBAGELEVERET'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("total");
+        }
+
+        return 0;
+    }
 }
 
 
