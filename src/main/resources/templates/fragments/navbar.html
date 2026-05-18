@@ -4,40 +4,40 @@
 
         <nav>
             <!-- ADMIN -->
-            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'ADMIN'}"
                href="/dashboard">Dashboard</a>
 
-            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'ADMIN'}"
                href="/lejeaftaler">Lejeaftaler</a>
 
-            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'ADMIN'}"
                href="/kunder">Kunder</a>
 
-            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'ADMIN'}"
                href="/biler">Biler</a>
 
-            <a th:if="${session.medarbejder.rolle.name() == 'ADMIN'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'ADMIN'}"
                href="/skader">Skader</a>
 
 
             <!-- DATAREGISTRERING -->
-            <a th:if="${session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
                href="/lejeaftaler">Lejeaftaler</a>
 
-            <a th:if="${session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
                href="/kunder">Kunder</a>
 
-            <a th:if="${session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'DATAREGISTRERING'}"
                href="/biler">Biler</a>
 
 
             <!-- SKADE -->
-            <a th:if="${session.medarbejder.rolle.name() == 'SKADE'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'SKADE'}"
                href="/skader">Skader</a>
 
 
             <!-- BUSINESS -->
-            <a th:if="${session.medarbejder.rolle.name() == 'BUSINESS'}"
+            <a th:if="${session.medarbejder != null and session.medarbejder.rolle != null and session.medarbejder.rolle.name() == 'BUSINESS'}"
                href="/dashboard">Dashboard</a>
 
 
