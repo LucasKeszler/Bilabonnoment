@@ -22,18 +22,17 @@ public class CarRepository {
 
         try {
             PreparedStatement preparedStatement = database.prepareStatement(
-                    "INSERT INTO bil(bil_id, vognummer, stelnummer, maerke, model, nummerplade, status, lokation, maanedspris) VALUES (?,?,?,?,?,?,?,?,?)"
+                    "INSERT INTO bil(vognummer, stelnummer, maerke, model, nummerplade, status, lokation, maanedspris) VALUES (?,?,?,?,?,?,?,?)"
             );
 
-            preparedStatement.setInt(1, car.getBil_id());
-            preparedStatement.setString(2, car.getVognummer());
-            preparedStatement.setString(3, car.getStelnummer());
-            preparedStatement.setString(4, car.getMaerke());
-            preparedStatement.setString(5, car.getModel());
-            preparedStatement.setString(6, car.getNummerplade());
-            preparedStatement.setString(7, car.getStatus().name());
-            preparedStatement.setString(8, car.getLokation());
-            preparedStatement.setDouble(9, car.getMaanedspris());
+            preparedStatement.setString(1, car.getVognummer());
+            preparedStatement.setString(2, car.getStelnummer());
+            preparedStatement.setString(3, car.getMaerke());
+            preparedStatement.setString(4, car.getModel());
+            preparedStatement.setString(5, car.getNummerplade());
+            preparedStatement.setString(6, car.getStatus().name());
+            preparedStatement.setString(7, car.getLokation());
+            preparedStatement.setDouble(8, car.getMaanedspris());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

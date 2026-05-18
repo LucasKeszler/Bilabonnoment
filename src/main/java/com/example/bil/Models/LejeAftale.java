@@ -36,6 +36,9 @@ public class LejeAftale {
         this.status = status;
     }
 
+    //tom constructor
+    public LejeAftale() {}
+
     public int getLejeaftale_id() {
         return lejeaftale_id;
     }

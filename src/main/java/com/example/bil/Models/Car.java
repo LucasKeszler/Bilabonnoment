@@ -26,7 +26,19 @@ public class Car {
         this.maanedspris = maanedspris;
     }
 
-    public int getBil_id() {
+    public Car(String vognummer, String stelnummer, String maerke, String model, String nummerplade, CarStatus status, String lokation, double maanedspris) {
+        this.vognummer = vognummer;
+        this.stelnummer = stelnummer;
+        this.maerke = maerke;
+        this.model = model;
+        this.nummerplade = nummerplade;
+        this.status = status;
+        this.lokation = lokation;
+        this.maanedspris = maanedspris;
+    }
+
+
+        public int getBil_id() {
         return bil_id;
     }
 

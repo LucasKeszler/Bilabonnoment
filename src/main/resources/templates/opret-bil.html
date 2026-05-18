@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret bil</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+    <h1>Opret bil</h1>
+
+    <form th:action="@{/biler/opret}" method="post" class="card">
+        <label>Vognnummer</label>
+        <input type="text" name="vognummer" required>
+
+        <label>Stelnummer</label>
+        <input type="text" name="stelnummer" required>
+
+        <label>Mærke</label>
+        <input type="text" name="maerke" required>
+
+        <label>Model</label>
+        <input type="text" name="model" required>
+
+        <label>Nummerplade</label>
+        <input type="text" name="nummerplade">
+
+        <label>Lokation</label>
+        <input type="text" name="lokation" required>
+
+        <label>Månedspris</label>
+        <input type="number" step="0.01" name="maanedspris" required>
+
+        <button type="submit">Opret bil</button>
+    </form>
+</main>
+
+</body>
+</html>

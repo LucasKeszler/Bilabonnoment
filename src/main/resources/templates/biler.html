@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biler</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+    <h1>Biler</h1>
+
+    <a th:href="@{/biler/opret}" class="button">Opret ny bil</a>
+
+    <section class="card table-card">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Vognnummer</th>
+                <th>Stelnummer</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Nummerplade</th>
+                <th>Status</th>
+                <th>Lokation</th>
+                <th>Månedspris</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bil : ${biler}">
+                <td th:text="${bil.bil_id}"></td>
+                <td th:text="${bil.vognummer}"></td>
+                <td th:text="${bil.stelnummer}"></td>
+                <td th:text="${bil.maerke}"></td>
+                <td th:text="${bil.model}"></td>
+                <td th:text="${bil.nummerplade}"></td>
+                <td th:text="${bil.status}"></td>
+                <td th:text="${bil.lokation}"></td>
+                <td th:text="${bil.maanedspris} + ' kr.'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+</body>
+</html>

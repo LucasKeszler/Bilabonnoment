@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kunder</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+    <h1>Kunder</h1>
+
+    <a th:href="@{/kunde/create}" class="button">Opret ny kunde</a>
+
+    <section class="card table-card">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Navn</th>
+                <th>Email</th>
+                <th>Telefon</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="kunde : ${kunder}">
+                <td th:text="${kunde.kunde_id}"></td>
+                <td th:text="${kunde.navn}"></td>
+                <td th:text="${kunde.email}"></td>
+                <td th:text="${kunde.telefon}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+</body>
+</html>

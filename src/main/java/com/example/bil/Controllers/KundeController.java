@@ -17,9 +17,11 @@ public class KundeController {
         this.kundeService = kundeService;
     }
 
-    @GetMapping("/kunde/create")
-    public ModelAndView showCreateKundePage() {
-        return new ModelAndView("create-kunde");
+    @GetMapping("/kunder")
+    public ModelAndView showKunder() {
+        ModelAndView mav = new ModelAndView("kunder");
+        mav.addObject("kunder", kundeService.getAllKunder());
+        return mav;
     }
 
     @PostMapping("/kunde/create")
@@ -31,6 +33,6 @@ public class KundeController {
 
         kundeService.createKunde(kunde);
 
-        return new ModelAndView("redirect:/kunde/create?success=true");
+        return new ModelAndView("redirect:/kunde");
     }
 }
