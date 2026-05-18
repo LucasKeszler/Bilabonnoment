@@ -38,9 +38,8 @@ public class DashboardService {
             return lejeAftaleRepository.getSamletPrisAktiveLejeaftaler();
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-
-        return 0;
     }
 
     public double getIndtjeningDenneMaaned() {
@@ -48,9 +47,8 @@ public class DashboardService {
             return lejeAftaleRepository.getIndtjeningDenneMaaned();
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-
-        return 0;
     }
 
     public int getAntalTilbageleveredeBiler() {
@@ -58,9 +56,8 @@ public class DashboardService {
             return carRepository.getAntalTilbageleveredeBiler();
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-
-        return 0;
     }
 
     public List<Car> getBilerMedSkader() {
@@ -68,9 +65,8 @@ public class DashboardService {
             return carRepository.getBilerMedSkader();
         } catch (SQLException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-
-        return new ArrayList<>();
     }
 
     public List<Car> getTilbageleveredeBiler() {
@@ -78,8 +74,7 @@ public class DashboardService {
             return carRepository.getTilbageleveredeBiler();
         } catch (SQLException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-
-        return new ArrayList<>();
     }
 }

@@ -12,9 +12,9 @@ public class Car {
     private String nummerplade;
     private CarStatus status;
     private String lokation;
+    private double maanedspris;
 
-
-    public Car(int bil_id, String vognummer, String stelnummer, String maerke, String model, String nummerplade, CarStatus status, String lokation) {
+    public Car(int bil_id, String vognummer, String stelnummer, String maerke, String model, String nummerplade, CarStatus status, String lokation, double maanedspris) {
         this.bil_id = bil_id;
         this.vognummer = vognummer;
         this.stelnummer = stelnummer;
@@ -23,6 +23,7 @@ public class Car {
         this.nummerplade = nummerplade;
         this.status = status;
         this.lokation = lokation;
+        this.maanedspris = maanedspris;
     }
 
     public int getBil_id() {
@@ -57,6 +58,10 @@ public class Car {
         return lokation;
     }
 
+    public double getMaanedspris() {
+        return maanedspris;
+    }
+
     public void setBil_id(int bil_id) {
         this.bil_id = bil_id;
     }
@@ -87,5 +92,9 @@ public class Car {
 
     public void setLokation(String lokation) {
         this.lokation = lokation;
+    }
+
+    public void setMaanedspris(double maanedspris) {
+        this.maanedspris = maanedspris;
     }
 }

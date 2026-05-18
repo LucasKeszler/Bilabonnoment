@@ -25,6 +25,7 @@ public class MedarbejderService {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
 
         return null;

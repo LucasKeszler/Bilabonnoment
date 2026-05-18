@@ -3,7 +3,6 @@ package com.example.bil.Services;
 import com.example.bil.Models.Car;
 import com.example.bil.Models.CarStatus;
 import com.example.bil.Repositories.CarRepository;
-import org.hibernate.annotations.processing.SQL;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -32,8 +31,8 @@ public class CarService {
             return carRepository.getAllCars();
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public Car getCarById(int bil_id) {
@@ -41,8 +40,8 @@ public class CarService {
             return carRepository.getCarById(bil_id);
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public void updateCarStatus( int bil_id, CarStatus status){
@@ -61,7 +60,13 @@ public class CarService {
         }
     }
 
-    public List<Car> getAvailableCars() throws SQLException{
+    public List<Car> getAvailableCars() {
+        try {
+           return carRepository.getAvailableCars();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     public List<Car> getCarsByStatus(CarStatus status) {
@@ -69,8 +74,7 @@ public class CarService {
             return carRepository.getCarsByStatus(status);
         } catch (SQLException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-
-        return new ArrayList<>();
     }
 }

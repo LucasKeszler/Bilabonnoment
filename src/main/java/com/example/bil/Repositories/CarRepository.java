@@ -22,7 +22,7 @@ public class CarRepository {
 
         try {
             PreparedStatement preparedStatement = database.prepareStatement(
-                    "INSERT INTO bil(bil_id, vognummer, stelnummer, maerke, model, nummerplade, status, lokation) VALUES (?,?,?,?,?,?,?,?)"
+                    "INSERT INTO bil(bil_id, vognummer, stelnummer, maerke, model, nummerplade, status, lokation, maanedspris) VALUES (?,?,?,?,?,?,?,?,?)"
             );
 
             preparedStatement.setInt(1, car.getBil_id());
@@ -33,6 +33,7 @@ public class CarRepository {
             preparedStatement.setString(6, car.getNummerplade());
             preparedStatement.setString(7, car.getStatus().name());
             preparedStatement.setString(8, car.getLokation());
+            preparedStatement.setDouble(9, car.getMaanedspris());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -81,7 +82,8 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     status,
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
             );
         }
         return car;
@@ -124,7 +126,8 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     status,
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
             );
 
             cars.add(car);
@@ -160,7 +163,8 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     CarStatus.valueOf(rs.getString("status")),
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
                     );
             cars.add(car);
         }
@@ -190,7 +194,8 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     status,
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
             );
 
             skadetCars.add(car);
@@ -222,7 +227,8 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     status,
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
             );
 
             tilbageLeveretBiler.add(car);
@@ -245,6 +251,39 @@ public class CarRepository {
         }
 
         return 0;
+    }
+
+    public List<Car> getAvailableCars() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Car> availableCars = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = 'LEDIG'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            CarStatus status = CarStatus.valueOf(rs.getString("status"));
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    status,
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
+            );
+
+            availableCars.add(car);
+        }
+
+        return availableCars;
     }
 }
 

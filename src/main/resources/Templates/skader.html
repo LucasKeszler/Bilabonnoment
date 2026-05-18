@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Skader</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+    <h1>Skader</h1>
+    <p class="subtitle">Biler der er tilbageleveret og klar til skaderegistrering</p>
+
+    <section class="card table-card">
+        <h2>Tilbageleverede biler</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Bil ID</th>
+                <th>Vognnummer</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Nummerplade</th>
+                <th>Status</th>
+                <th>Lokation</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="car : ${tilbageleveredeBiler}">
+                <td th:text="${car.bil_id}"></td>
+                <td th:text="${car.vognummer}"></td>
+                <td th:text="${car.maerke}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.nummerplade}"></td>
+                <td th:text="${car.status}"></td>
+                <td th:text="${car.lokation}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(tilbageleveredeBiler)}">
+            Ingen tilbageleverede biler lige nu.
+        </p>
+    </section>
+</main>
+
+</body>
+</html>

@@ -43,8 +43,8 @@ public class KundeService {
             return kundeRepository.getAllKunder();
         } catch (SQLException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 
     public void updateKunde(Kunde kunde) {
@@ -60,9 +60,7 @@ public class KundeService {
         try {
             kundeRepository.deleteKunde(kunde_id);
         }catch (SQLException e){
-
             e.printStackTrace();
         }
-
     }
 }

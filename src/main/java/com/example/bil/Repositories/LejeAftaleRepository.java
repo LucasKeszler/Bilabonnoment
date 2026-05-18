@@ -188,4 +188,30 @@ public class LejeAftaleRepository {
         return lejeAftale;
     }
 
+    public void updateLejeStatus(int lejeaftale_id, LejeStatus status) throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "UPDATE lejeaftale SET status = ? WHERE lejeaftale_id = ?"
+        );
+
+        preparedStatement.setString(1, status.name());
+        preparedStatement.setInt(2, lejeaftale_id);
+
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteLejeAftale(int lejeaftale_id) throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "DELETE FROM lejeaftale WHERE lejaftale_id = ?"
+        );
+
+        preparedStatement.setInt(1, lejeaftale_id);
+
+        preparedStatement.executeUpdate();
+    }
+
+
 }

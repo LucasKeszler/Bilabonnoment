@@ -90,7 +90,7 @@ public class KundeRepository {
         preparedStatement.setString(3, kunde.getTelefon());
         preparedStatement.setInt(4, kunde.getKunde_id());
 
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     public void deleteKunde(int kunde_id)throws SQLException{
@@ -102,7 +102,7 @@ public class KundeRepository {
 
         preparedStatement.setInt(1, kunde_id);
 
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
     }
 
