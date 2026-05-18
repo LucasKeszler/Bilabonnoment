@@ -15,7 +15,29 @@ public class LejeAftale {
     private LejeStatus status;
 
     public LejeAftale(int lejeaftaleId, int kundeId, int bilId, LocalDate startdato, LocalDate slutdato, double pris, String afhentningssted, String afleveringssted, LejeStatus lejeStatus) {
+        this.lejeaftale_id = lejeaftaleId;
+        this.kunde_id = kundeId;
+        this.bil_id = bilId;
+        this.startdato = startdato;
+        this.slutdato = slutdato;
+        this.pris = pris;
+        this.afhentningssted = afhentningssted;
+        this.afleveringssted = afleveringssted;
+        this.status = lejeStatus;
     }
+
+    public LejeAftale(int kundeId, int bilId, LocalDate startdato, LocalDate slutdato, String afhentningssted, String afleveringssted, LejeStatus status) {
+        this.kunde_id = kundeId;
+        this.bil_id = bilId;
+        this.startdato = startdato;
+        this.slutdato = slutdato;
+        this.afhentningssted = afhentningssted;
+        this.afleveringssted = afleveringssted;
+        this.status = status;
+    }
+
+    //tom constructor
+    public LejeAftale() {}
 
     public int getLejeaftale_id() {
         return lejeaftale_id;

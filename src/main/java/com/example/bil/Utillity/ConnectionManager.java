@@ -8,19 +8,9 @@ public class ConnectionManager {
     private Connection connection;
 
     public ConnectionManager() throws SQLException {
-        String url = System.getProperty("DB_URL");
-        String user = System.getProperty("DB_USER");
-        String password = System.getProperty("DB_PASSWORD");
-
-        if (url == null) {
-            url = System.getenv("DB_URL");
-        }
-        if (user == null) {
-            user = System.getenv("DB_USER");
-        }
-        if (password == null) {
-            password = System.getenv("DB_PASSWORD");
-        }
+        String url = System.getProperty("DB_URL", System.getenv("DB_URL"));
+        String user = System.getProperty("DB_USER", System.getenv("DB_USER"));
+        String password = System.getProperty("DB_PASSWORD", System.getenv("DB_PASSWORD"));
 
         this.connection = DriverManager.getConnection(url, user, password);
     }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret lejeaftale</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+    <h1>Opret lejeaftale</h1>
+
+    <form th:action="@{/lejeaftaler/opret}" th:object="${lejeAftale}" method="post" class="card">
+
+        <label>Kunde</label>
+        <select th:field="*{kunde_id}" required>
+            <option value="0">Vælg kunde</option>
+            <option th:each="kunde : ${kunder}"
+                    th:value="${kunde.kunde_id}"
+                    th:text="${kunde.navn}">
+            </option>
+        </select>
+
+        <label>Bil</label>
+        <select th:field="*{bil_id}" required>
+            <option value="0">Vælg bil</option>
+            <option th:each="bil : ${biler}"
+                    th:value="${bil.bil_id}"
+                    th:text="${bil.maerke + ' ' + bil.model + ' - ' + bil.nummerplade}">
+            </option>
+        </select>
+
+        <label>Startdato</label>
+        <input type="date" th:field="*{startdato}" required>
+
+        <label>Slutdato</label>
+        <input type="date" th:field="*{slutdato}" required>
+
+        <label>Afhentningssted</label>
+        <input type="text" th:field="*{afhentningssted}" required>
+
+        <label>Afleveringssted</label>
+        <input type="text" th:field="*{afleveringssted}" required>
+
+        <input type="hidden" th:field="*{status}" value="AKTIV">
+
+        <button type="submit">Opret lejeaftale</button>
+    </form>
+</main>
+
+</body>
+</html>

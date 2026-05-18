@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+
+    <h1>Dashboard</h1>
+    <p class="subtitle">Økonomisk overblik og centrale nøgletal</p>
+
+    <section class="dashboard-grid">
+
+        <div class="card">
+            <h2>Udlejede biler</h2>
+            <p class="big-number" th:text="${antalUdlejede}">0</p>
+        </div>
+
+        <div class="card">
+            <h2>Samlet pris på aktive lejeaftaler</h2>
+            <p class="big-number">
+                <span th:text="${samletPris}">0</span> kr.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Indtjening denne måned</h2>
+            <p class="big-number">
+                <span th:text="${indtjeningMaaned}">0</span> kr.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Tilbageleverede biler</h2>
+            <p class="big-number" th:text="${antalTilbageleverede}">0</p>
+        </div>
+
+    </section>
+
+    <section class="card table-card">
+        <h2>Biler med skader</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Vognnummer</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Nummerplade</th>
+                <th>Status</th>
+                <th>Lokation</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="car : ${bilerMedSkader}">
+                <td th:text="${car.vognummer}"></td>
+                <td th:text="${car.maerke}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.nummerplade}"></td>
+                <td th:text="${car.status}"></td>
+                <td th:text="${car.lokation}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(bilerMedSkader)}">
+            Ingen biler med skader registreret.
+        </p>
+    </section>
+
+</main>
+
+</body>
+</html>

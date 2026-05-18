@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.PreparedStatement.*;
+
 @Repository
 public class CarRepository {
 
@@ -20,20 +22,20 @@ public class CarRepository {
 
         try {
             PreparedStatement preparedStatement = database.prepareStatement(
-                    "INSERT INTO bil(bil_id, vognummer, stelnummer, maerke, model, nummerplade, status, lokation) VALUES (?,?,?,?,?,?,?,?)"
+                    "INSERT INTO bil(vognummer, stelnummer, maerke, model, nummerplade, status, lokation, maanedspris) VALUES (?,?,?,?,?,?,?,?)"
             );
 
-            preparedStatement.setInt(1, car.getBil_id());
-            preparedStatement.setString(2, car.getVognummer());
-            preparedStatement.setString(3, car.getStelnummer());
-            preparedStatement.setString(4, car.getMaerke());
-            preparedStatement.setString(5, car.getModel());
-            preparedStatement.setString(6, car.getNummerplade());
-            preparedStatement.setString(7, car.getStatus().name());
-            preparedStatement.setString(8, car.getLokation());
+            preparedStatement.setString(1, car.getVognummer());
+            preparedStatement.setString(2, car.getStelnummer());
+            preparedStatement.setString(3, car.getMaerke());
+            preparedStatement.setString(4, car.getModel());
+            preparedStatement.setString(5, car.getNummerplade());
+            preparedStatement.setString(6, car.getStatus().name());
+            preparedStatement.setString(7, car.getLokation());
+            preparedStatement.setDouble(8, car.getMaanedspris());
 
             preparedStatement.executeUpdate();
-    } catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Kunne ikke oprette bil");
         }
     }
@@ -43,8 +45,8 @@ public class CarRepository {
 
         PreparedStatement preparedStatement = database.prepareStatement(
                 "SELECT maerke, COUNT(*) as antal" +
-                "FROM bil WHERE status = 'UDLEJET'" +
-                "GROUP BY maerke ORDER BY antal DESC LIMIT 1"
+                        "FROM bil WHERE status = 'UDLEJET'" +
+                        "GROUP BY maerke ORDER BY antal DESC LIMIT 1"
         );
 
         ResultSet rs = preparedStatement.executeQuery();
@@ -79,7 +81,8 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     status,
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
             );
         }
         return car;
@@ -122,12 +125,167 @@ public class CarRepository {
                     rs.getString("model"),
                     rs.getString("nummerplade"),
                     status,
-                    rs.getString("lokation")
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
             );
 
             cars.add(car);
         }
-
         return cars;
     }
+
+    public void deleteCar(int bil_id) throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "DELETE FROM bil WHERE bil_id = ?"
+        );
+        preparedStatement.setInt(1, bil_id);
+        preparedStatement.executeUpdate();
+    }
+    public List<Car> getCarsByStatus (CarStatus status) throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+        List<Car> cars = new ArrayList<>();
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = ?"
+        );
+        preparedStatement.setString(1, status.name());
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    CarStatus.valueOf(rs.getString("status")),
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
+                    );
+            cars.add(car);
+        }
+        return cars;
+    }
+
+    public List<Car> getBilerMedSkader() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Car> skadetCars = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = 'SKADET'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            CarStatus status = CarStatus.valueOf(rs.getString("status"));
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    status,
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
+            );
+
+            skadetCars.add(car);
+        }
+
+        return skadetCars;
+    }
+
+    public List<Car> getTilbageleveredeBiler() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Car> tilbageLeveretBiler = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = 'TILBAGELEVERET'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            CarStatus status = CarStatus.valueOf(rs.getString("status"));
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    status,
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
+            );
+
+            tilbageLeveretBiler.add(car);
+        }
+
+        return tilbageLeveretBiler;
+    }
+
+    public int getAntalTilbageleveredeBiler() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT COUNT(*) AS total FROM bil WHERE status = 'TILBAGELEVERET'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("total");
+        }
+
+        return 0;
+    }
+
+    public List<Car> getAvailableCars() throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Car> availableCars = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM bil WHERE status = 'LEDIG'"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+
+            CarStatus status = CarStatus.valueOf(rs.getString("status"));
+
+            Car car = new Car(
+                    rs.getInt("bil_id"),
+                    rs.getString("vognummer"),
+                    rs.getString("stelnummer"),
+                    rs.getString("maerke"),
+                    rs.getString("model"),
+                    rs.getString("nummerplade"),
+                    status,
+                    rs.getString("lokation"),
+                    rs.getDouble("maanedspris")
+            );
+
+            availableCars.add(car);
+        }
+
+        return availableCars;
+    }
 }
+
+
+
+

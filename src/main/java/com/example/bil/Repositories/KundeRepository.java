@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class KundeRepository {
@@ -23,7 +25,7 @@ public class KundeRepository {
             preparedStatement.setInt(1, kunde.getKunde_id());
             preparedStatement.setString(2, kunde.getNavn());
             preparedStatement.setString(3, kunde.getEmail());
-            preparedStatement.setString(4, kunde.getEmail());
+            preparedStatement.setString(4, kunde.getTelefon());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -53,4 +55,57 @@ public class KundeRepository {
         }
         return kunde;
     }
-}
+    public List<Kunde> getAllKunder() throws SQLException{
+        Connection database = new ConnectionManager().getConnection();
+
+        List<Kunde> alleKunder = new ArrayList<>();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "SELECT * FROM kunde"
+        );
+
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()){
+            Kunde kunde = new Kunde(
+                    rs.getInt("kunde_id"),
+                    rs.getString("navn"),
+                    rs.getString("email"),
+                    rs.getString("telefon")
+            );
+
+            alleKunder.add(kunde);
+        }
+        return alleKunder;
+    }
+
+    public void updateKunde(Kunde kunde) throws SQLException {
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "UPDATE kunde SET navn = ?, email = ?, telefon = ?, WHERE kunde_id = ?"
+        );
+
+        preparedStatement.setString(1, kunde.getNavn());
+        preparedStatement.setString(2, kunde.getEmail());
+        preparedStatement.setString(3, kunde.getTelefon());
+        preparedStatement.setInt(4, kunde.getKunde_id());
+
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteKunde(int kunde_id)throws SQLException{
+        Connection database = new ConnectionManager().getConnection();
+
+        PreparedStatement preparedStatement = database.prepareStatement(
+                "DELETE FROM kunde WHERE kunde_id = ?"
+        );
+
+        preparedStatement.setInt(1, kunde_id);
+
+        preparedStatement.executeUpdate();
+
+    }
+
+
+    }
+

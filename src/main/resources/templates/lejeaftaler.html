@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lejeaftaler</title>
+    <link rel="stylesheet" href="/css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container">
+    <h1>Lejeaftaler</h1>
+    <p class="subtitle">Overblik over alle lejeaftaler</p>
+
+    <a th:href="@{/lejeaftaler/opret}" class="button">Opret ny lejeaftale</a>
+    <section class="card table-card">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kunde ID</th>
+                <th>Bil ID</th>
+                <th>Startdato</th>
+                <th>Slutdato</th>
+                <th>Pris</th>
+                <th>Afhentning</th>
+                <th>Aflevering</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="aftale : ${lejeaftaler}">
+                <td th:text="${aftale.lejeaftale_id}"></td>
+                <td th:text="${aftale.kunde_id}"></td>
+                <td th:text="${aftale.bil_id}"></td>
+                <td th:text="${aftale.startdato}"></td>
+                <td th:text="${aftale.slutdato}"></td>
+                <td>
+                    <span th:text="${aftale.pris}"></span> kr.
+                </td>
+                <td th:text="${aftale.afhentningssted}"></td>
+                <td th:text="${aftale.afleveringssted}"></td>
+                <td th:text="${aftale.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(lejeaftaler)}">
+            Ingen lejeaftaler fundet.
+        </p>
+    </section>
+</main>
+
+</body>
+</html>

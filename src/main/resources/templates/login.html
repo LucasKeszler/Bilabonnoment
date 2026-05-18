@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilabonnement Admin Portal</title>
+
+    <link rel="stylesheet" href="/css/login.css" th:href="@{/css/login.css}">
+</head>
+<body>
+
+<main>
+<div class="login-container">
+    <h1>Bilabonnement Admin Portal</h1>
+    <p class="subtitle">Internt administrationssystem</p>
+
+    <form method="post" action="/">
+        <input
+                type="text"
+                name="username"
+                placeholder="Brugernavn"
+                required
+        >
+
+        <input
+                type="password"
+                name="password"
+                placeholder="Adgangskode"
+                required
+        >
+
+        <button type="submit">Log ind</button>
+    </form>
+
+    <p class="error-message"
+       th:if="${error}"
+       th:text="${error}">
+    </p>
+
+    <div class="footer">
+        Kun autoriserede medarbejdere har adgang
+    </div>
+</div>
+</main>
+</body>
+
+
+</html>
